@@ -83,7 +83,7 @@ def udoctor():
         if c==4:
             id=int(input('Enter Doctor ID: '))
             room=input('Enter Update Doctor Room no.: ')
-            v=dept,id
+            v=room,id
             q='update doctor set room=%s where did=%s'
             cur.execute(q,v)
             con.commit()
@@ -155,7 +155,7 @@ def upatient():
         if c==4:
             id=int(input('Enter Patient ID: '))
             room=input('Enter Update Patient Room No.: ')
-            v=dept,id
+            v=room,id
             q='update doctor set room=%s where pid=%s'
             cur.execute(q,v)
             con.commit()
