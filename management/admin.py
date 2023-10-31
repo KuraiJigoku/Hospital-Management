@@ -1,8 +1,6 @@
 import myc
 import mysql.connector as mycc
 from texttable import Texttable
-u=input('Enter Admin Username: ')
-p=input('Enter Admin Password: ')
 con,cur=myc.connection()
 try:
     cur.execute("insert ignore into login values('admin','radcliff','ADMIN')")
@@ -10,6 +8,8 @@ try:
 except mycc.Error as E:
     print(E.msg)
 
+u=input('Enter Admin Username: ')
+p=input('Enter Admin Password: ')
 
 def login():
     v=(u,)
@@ -22,5 +22,6 @@ def login():
     return t
 t=login()
 if t=="True":
-    print('harry')
+    try:
+        print('1. Hospital Managing')
 
