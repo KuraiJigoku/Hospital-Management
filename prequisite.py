@@ -1,4 +1,4 @@
-import myc
+import mysqlc
 import values
-con,cur=myc.connection()
-myc.create(cur)
+con,cur=mysqlc.connection()
+mysqlc.create(cur)

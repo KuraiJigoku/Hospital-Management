@@ -1,18 +1,19 @@
-import myc
-import mysql.connector as mycc
+import mysqlc
+import mysql.connector as myc
 from texttable import Texttable
-con,cur=myc.connection()
+con,cur=mysqlc.connection()
 try:
     cur.execute('CREATE TABLE IF NOT EXISTS login(USERNAME varchar(15),PASSWORD varchar(20),ROLE varchar(10),PRIMARY KEY (USERNAME))')
     cur.execute("insert ignore into login values('admin','radcliff','ADMIN')")
     con.commit()
-except mycc.Error as E:
+except myc.Error as E:
     print(E.msg)
 
-u=input('Enter Admin Username: ')
-p=input('Enter Admin Password: ')
+
 
 def login():
+    u=input('Enter Admin Username: ')
+    p=input('Enter Admin Password: ')
     v=(u,)
     q='select * from login where username=%s'
     cur.execute(q,v)
@@ -24,17 +25,17 @@ def login():
     return t
 def adoctor():
     try:
-        cur.execute('CREATE TABLE IF NOT EXISTS doctor(DID int,NAME varchar(20),DEPT varchar(20),FEES int,ROOM int,PRIMARY KEY (DID))')
+        cur.execute('CREATE TABLE IF NOT EXISTS doctor(DID int,NAME varchar(40),DEPT varchar(40),FEES int,ROOM int,PRIMARY KEY (DID))')
         q='insert into doctor values(%s,%s,%s,%s,%s)'
         did=int(input('Enter Doctor ID: '))
         name=input('Enter Name of the Doctor: ')
         dept=input('Enter Department of the Doctor: ')
-        fees=int(input('Enter Fees of the Doctor'))
+        fees=int(input('Enter Fees of the Doctor: '))
         room=int(input('Enter Room No. of the Doctor: '))
         v=did,name,dept,fees,room
         cur.execute(q,v)
         con.commit()
-    except mycc.Error as E:
+    except myc.Error as E:
         print(E.msg)
 def rdoctor():
     try:
@@ -42,20 +43,20 @@ def rdoctor():
         v=(id,)
         q='delete from doctor where id=%s'
         cur.execute(q,v)
-    except mycc.Error as E:
+    except myc.Error as E:
         print(E.msg)
 def udoctor():
     try:
-        t3=Texttable()
-        t3.set_cols_align(['l'])
-        t3.set_cols_valign(['m'])
-        t3.add_rows([['LOGGED IN AS ADMIN'],
+        t6=Texttable()
+        t6.set_cols_align(['l'])
+        t6.set_cols_valign(['m'])
+        t6.add_rows([['LOGGED IN AS ADMIN'],
                      ['1. Update NAME'],
                      ['2. Update DEPARTMENT'],
                      ['3. Update FEES'],
                      ['4. Update ROOM No.']
                      ])
-        print(t3.draw())
+        print(t6.draw())
         c=int(input('Enter Choice: '))
         if c==1:
             id=int(input('Enter Doctor ID: '))
@@ -89,106 +90,104 @@ def udoctor():
             cur.execute(q,v)
             con.commit()
             print('Room No. Updated')
-    except mycc.Error as E:
+    except myc.Error as E:
         print(E.msg)
 def ddoctor():
     try:
         q="select * from doctor"
         cur.execute(q)
-        t4=Texttable()
-        t4.set_cols_align(["c","c","c","c","c"])
-        t4.set_cols_valign(["m","m","m","m","m"])
-        t4.set_cols_dtype(["i","t","t","i","i"])
-        t4.add_row(["DID","NAME","DEPT","FEES","ROOM No."])
+        t7=Texttable()
+        t7.set_cols_align(["c","c","c","c","c"])
+        t7.set_cols_valign(["m","m","m","m","m"])
+        t7.set_cols_dtype(["i","t","t","i","i"])
+        t7.add_row(["DID","NAME","DEPT","FEES","ROOM No."])
         r=cur.fetchall()
         for x in r:
-            t4.add_row(x)
-        print(t4.draw())
-    except myc.Error as E:
+            t7.add_row(x)
+        print(t7.draw())
+    except mysqlc.Error as E:
         print(E.msg)
 def apatient():
     try:
-        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID int,USERNAME varchar(15),NAME varchar(20),AGE int,BLOOD_GROUP varchar(3),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID)),FOREIGN KEY (USERNAME) references login(USERNAME))')
-        q='insert into patient values(%s,%s,%s,%s,%s,%s)'
-        pid=int(input('Enter Patient ID: '))
+        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),AGE int,BLOOD_GROUP varchar(3),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID)),FOREIGN KEY (PID) references login(username))')
+        pid=input('Enter Patient Username: ')
         name=input('Enter Name of the Patient: ')
         age=int(input('Enter Age of the Patient: '))
         blood_group=input('Enter Blood Group of the Patient: ')
         did=int(input('Enter Doctor ID: '))
+        q='insert into login values(%s,%s,%s)'
+        v=pid,pid,'PATIENT'
+        cur.execute(q,v)
+        q='insert into patient values(%s,%s,%s,%s,%s,%s)'
         v=pid,name,age,blood_group,did
         cur.execute(q,v)
         con.commit()
-    except mycc.Error as E:
+    except myc.Error as E:
         print(E.msg)
 
 def upatient():
     try:
-        t5=Texttable()
-        t5.set_cols_align(['l'])
-        t5.set_cols_valign(['m'])
-        t5.add_rows([['LOGGED IN AS ADMIN'],
+        t8=Texttable()
+        t8.set_cols_align(['l'])
+        t8.set_cols_valign(['m'])
+        t8.add_rows([['LOGGED IN AS ADMIN'],
                      ['1. Update NAME'],
                      ['2. Display AGE'],
                      ['3. Update BLOOD GROUP'],
-                     ['4. Update ROOM No.']
+                     ['4. Back']
                      ])
-        print(t5.draw())
-        c=int(input('Enter Choice: '))
-        if c==1:
-            id=int(input('Enter Patient ID: '))
-            name=input('Enter Update Patient Name: ')
-            v=name,id
-            q='update patient set name=%s where pid=%s'
-            cur.execute(q,v)
-            con.commit()
-            print('Name Updated')
-        if c==2:
-            id=int(input('Enter Patient ID: '))
-            dept=input('Enter Update Patient Age: ')
-            v=dept,id
-            q='update patient set age=%s where pid=%s'
-            cur.execute(q,v)
-            con.commit()
-            print('Age Updated')
-        if c==3:
-            id=int(input('Enter Patient ID: '))
-            fees=input('Enter Update Patient Blood Group: ')
-            v=fees,id
-            q='update doctor set blood_group=%s where pid=%s'
-            cur.execute(q,v)
-            con.commit()
-            print('Blood Group Updated')
-        if c==4:
-            id=int(input('Enter Patient ID: '))
-            room=input('Enter Update Patient Room No.: ')
-            v=room,id
-            q='update doctor set room=%s where pid=%s'
-            cur.execute(q,v)
-            con.commit()
-            print('Room No. Updated')
-    except mycc.Error as E:
+        while True:
+            print(t8.draw())
+            c=int(input('Enter Choice: '))
+            if c==1:
+                id=input('Enter Patient ID: ')
+                name=input('Enter Update Patient Name: ')
+                v=name,id
+                q='update patient set name=%s where pid=%s'
+                cur.execute(q,v)
+                con.commit()
+                print('Name Updated')
+            elif c==2:
+                id=input('Enter Patient ID: ')
+                dept=input('Enter Update Patient Age: ')
+                v=dept,id
+                q='update patient set age=%s where pid=%s'
+                cur.execute(q,v)
+                con.commit()
+                print('Age Updated')
+            elif c==3:
+                id=input('Enter Patient ID: ')
+                fees=input('Enter Update Patient Blood Group: ')
+                v=fees,id
+                q='update doctor set blood_group=%s where pid=%s'
+                cur.execute(q,v)
+                con.commit()
+                print('Blood Group Updated')
+            elif c==4:
+                break
+    except myc.Error as E:
         print(E.msg)
 def rpatient():
     try:
         q='delete from patient where pid=%s'
-        id=int(input('Enter Patient ID: '))
+        id=input('Enter Patient ID: ')
         v=(id,)
         cur.execute(q,v)
         con.commit()
-    except mycc.Error as E:
+    except myc.Error as E:
         print(E.msg)
 def dpatient():
     try:
         q="select * from doctor"
         cur.execute(q)
-        t4=Texttable()
-        t4.set_cols_align(["c","c","c","c","c"])
-        t4.set_cols_valign(["m","m","m","m","m"])
-        t4.set_cols_dtype(["i","t","t","i","i"])
-        t4.add_row(["PID","NAME","AGE","BlOOD GROUP","ROOM No."])
+        t9=Texttable()
+        t9.set_cols_align(["c","c","c","c","c"])
+        t9.set_cols_valign(["m","m","m","m","m"])
+        t9.set_cols_dtype(["i","t","t","i","i"])
+        t9.add_row(["PID","NAME","AGE","BlOOD GROUP","ROOM No."])
         r=cur.fetchall()
         for x in r:
-            t4.add_row(x)
-        print(t4.draw())
+            t9.add_row(x)
+        print(t9.draw())
     except myc.Error as E:
         print(E.msg)
