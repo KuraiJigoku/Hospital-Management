@@ -21,6 +21,7 @@ def login():
     for x in cur:
         if x[1]==p:
             t='True'
+    return t
 def adoctor():
     try:
         cur.execute('CREATE TABLE IF NOT EXISTS doctor(DID int,NAME varchar(20),DEPT varchar(20),FEES int,ROOM int,PRIMARY KEY (DID))')
@@ -92,15 +93,6 @@ def udoctor():
         print(E.msg)
 def ddoctor():
     try:
-        q='delete from doctor where did=%s'
-        id=int(input('Enter Doctor ID: '))
-        v=(id,)
-        cur.execute(q,v)
-        con.commit()
-    except mycc.Error as E:
-        print(E.msg)
-def disdoctor():
-    try:
         q="select * from doctor"
         cur.execute(q)
         t4=Texttable()
@@ -114,8 +106,22 @@ def disdoctor():
         print(t4.draw())
     except myc.Error as E:
         print(E.msg)
+def apatient():
+    try:
+        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID int,USERNAME varchar(15),NAME varchar(20),AGE int,BLOOD_GROUP varchar(3),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID)),FOREIGN KEY (USERNAME) references login(USERNAME))')
+        q='insert into patient values(%s,%s,%s,%s,%s,%s)'
+        pid=int(input('Enter Patient ID: '))
+        name=input('Enter Name of the Patient: ')
+        age=int(input('Enter Age of the Patient: '))
+        blood_group=input('Enter Blood Group of the Patient: ')
+        did=int(input('Enter Doctor ID: '))
+        v=pid,name,age,blood_group,did
+        cur.execute(q,v)
+        con.commit()
+    except mycc.Error as E:
+        print(E.msg)
+
 def upatient():
-    cur.execute('CREATE TABLE IF NOT EXISTS patient(PID int,USERNAME varchar(15),NAME varchar(20),AGE int,BLOOD_GROUP varchar(3),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID)),FOREIGN KEY (USERNAME) references login(USERNAME))')
     try:
         t5=Texttable()
         t5.set_cols_align(['l'])
@@ -161,4 +167,28 @@ def upatient():
             con.commit()
             print('Room No. Updated')
     except mycc.Error as E:
+        print(E.msg)
+def rpatient():
+    try:
+        q='delete from patient where pid=%s'
+        id=int(input('Enter Patient ID: '))
+        v=(id,)
+        cur.execute(q,v)
+        con.commit()
+    except mycc.Error as E:
+        print(E.msg)
+def dpatient():
+    try:
+        q="select * from doctor"
+        cur.execute(q)
+        t4=Texttable()
+        t4.set_cols_align(["c","c","c","c","c"])
+        t4.set_cols_valign(["m","m","m","m","m"])
+        t4.set_cols_dtype(["i","t","t","i","i"])
+        t4.add_row(["PID","NAME","AGE","BlOOD GROUP","ROOM No."])
+        r=cur.fetchall()
+        for x in r:
+            t4.add_row(x)
+        print(t4.draw())
+    except myc.Error as E:
         print(E.msg)
