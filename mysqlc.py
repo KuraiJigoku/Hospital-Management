@@ -8,20 +8,9 @@ def connection():
         con=myc.connect(host=host,user=user,password=pas)
         cur=con.cursor()
         print('Connection Successfull')
+        cur.execute("CREATE DATABASE IF NOT EXISTS xiiproject")
         cur.execute("USE xiiproject")
+        print('Connected to Database')
         return con,cur
-    except myc.Error as E:
-        print(E.msg)
-def create(cur):
-    try:
-
-        cur.execute("SHOW DATABASES")
-        temp = cur.fetchall()
-        databases=[]
-        for x in temp:
-             databases.append(x)
-        if "xiiproject" not in databases:
-             cur.execute("CREATE DATABASE IF NOT EXISTS xiiproject")
-        cur.execute("USE xiiproject")
     except myc.Error as E:
         print(E.msg)

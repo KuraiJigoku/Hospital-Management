@@ -1,4 +1,5 @@
 import management.admin as admin
+import management.user as user
 from texttable import Texttable
 
 t1 = Texttable()
@@ -87,37 +88,14 @@ while True:
                         elif c1 == 5:
                             break
                 elif c == 3:
-                    break
+                    break 
     elif v == 2:
-        print('Not Implemented Yet')
-        """
-        t5 = Texttable()
-        t5.set_cols_align(['l'])
-        t5.set_cols_valign(['m'])
-        t5.add_rows([['REGISTER AS USER'],
-                     ['1. Add User Details'],
-                     ['2. Remove User Details'],
-                     ['3. Update User Details'],
-                     ['4. Display User Details'],
-                     ['5. Back']
-                     ])
-        while True:
-            print(t5.draw())
-            c1 = int(input('Enter Choice: '))
-            if c1 == 1:
-                admin.auser()
-            elif c1 == 2:
-                admin.ruser()
-            elif c1 == 3:
-                admin.uuser()
-            elif c1 == 4:
-                admin.duser()
-            elif c1 == 5:
-                    break
-        """
+        t1=user.login()
+        while t1=='True':
+            user.dpatient()
+
+
     elif v == 3:
-        print("User login is not implemented yet")
-    elif v == 4:
         print("Exiting...")
         break
 

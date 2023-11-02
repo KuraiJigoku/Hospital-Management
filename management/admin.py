@@ -109,17 +109,19 @@ def ddoctor():
         print(E.msg)
 def apatient():
     try:
-        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),AGE int,BLOOD_GROUP varchar(3),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID)),FOREIGN KEY (PID) references login(username))')
+        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),AGE int,BLOOD_GROUP varchar(3),REMARK varchar(70),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID))')
         pid=input('Enter Patient Username: ')
         name=input('Enter Name of the Patient: ')
         age=int(input('Enter Age of the Patient: '))
+        gender=input('Enter Gender of the Patient: ')
         blood_group=input('Enter Blood Group of the Patient: ')
+        remark=input('Enter Remark of the Patient: ')
         did=int(input('Enter Doctor ID: '))
         q='insert into login values(%s,%s,%s)'
         v=pid,pid,'PATIENT'
         cur.execute(q,v)
-        q='insert into patient values(%s,%s,%s,%s,%s,%s)'
-        v=pid,name,age,blood_group,did
+        q='insert into patient values(%s,%s,%s,%s,%s,%s,%s)'
+        v=pid,name,gender,age,blood_group,remark,did
         cur.execute(q,v)
         con.commit()
     except myc.Error as E:

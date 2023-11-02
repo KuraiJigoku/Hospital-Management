@@ -1,4 +1,5 @@
 import mysqlc
-import values
+import management.values as values
 con,cur=mysqlc.connection()
-mysqlc.create(cur)
+values.audoctor()
+values.aupatient()
