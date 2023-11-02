@@ -1,3 +1,4 @@
+from math import e
 import management.admin as admin
 import management.user as user
 from texttable import Texttable
@@ -88,10 +89,16 @@ while True:
                             break
                 elif c == 3:
                     break 
+        else:
+            print('Invalid Username or Password')
+            input('Press Enter to Continue')
     elif v == 2:
-        t1=user.login()
-        while t1=='True':
+        u1=user.login()
+        if u1=='True':
             user.dpatient()
+        else:
+            print('Invalid Username or Password')
+            input('Press Enter to Continue')
 
 
     elif v == 3:

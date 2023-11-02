@@ -8,8 +8,8 @@ def connection():
         con=myc.connect(host=host,user=user,password=pas)
         cur=con.cursor()
         print('Connection Successfull')
-        cur.execute("CREATE DATABASE IF NOT EXISTS xiiproject")
-        cur.execute("USE xiiproject")
+        cur.execute("CREATE DATABASE IF NOT EXISTS xiiproject1")
+        cur.execute("USE xiiproject1")
         print('Connected to Database')
         return con,cur
     except myc.Error as E:

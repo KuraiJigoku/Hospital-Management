@@ -105,11 +105,11 @@ def ddoctor():
         for x in r:
             t7.add_row(x)
         print(t7.draw())
-    except mysqlc.Error as E:
+    except myc.Error as E:
         print(E.msg)
 def apatient():
     try:
-        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),AGE int,BLOOD_GROUP varchar(3),REMARK varchar(70),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID))')
+        cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),GENDER varchar(10),AGE int,BLOOD_GROUP varchar(3),REMARK varchar(70),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID))')
         pid=input('Enter Patient Username: ')
         name=input('Enter Name of the Patient: ')
         age=int(input('Enter Age of the Patient: '))
@@ -180,13 +180,13 @@ def rpatient():
         print(E.msg)
 def dpatient():
     try:
-        q="select * from doctor"
+        q="select * from patient"
         cur.execute(q)
         t9=Texttable()
-        t9.set_cols_align(["c","c","c","c","c"])
-        t9.set_cols_valign(["m","m","m","m","m"])
-        t9.set_cols_dtype(["i","t","t","i","i"])
-        t9.add_row(["PID","NAME","AGE","BlOOD GROUP","ROOM No."])
+        t9.set_cols_align(["c","c","c","c","c","c","c"])
+        t9.set_cols_valign(["m","m","m","m","m","m","m"])
+        t9.set_cols_dtype(["i","t","t","i","t","t","i"])
+        t9.add_row(["PID","NAME","GENDER","AGE","BlOOD GROUP","REMARK","DID"])
         r=cur.fetchall()
         for x in r:
             t9.add_row(x)

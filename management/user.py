@@ -40,19 +40,36 @@ def dpatient():
                         print(p2.draw())
                         c1=int(input('Enter Choice: '))
                         if c1==1:
-                            q='select * from patient where pid=%s'
+                            q='select pid,name,gender,age,blood_group,remark from patient where pid=%s'
                             pid=input('Enter Patient ID: ')
                             v=(pid,)
                             cur.execute(q,v)
-                            for x in cur:
-                                print(x)
+                            pp1=Texttable()
+                            pp1.set_cols_align(["c","c","c","c","c","c"])
+                            pp1.set_cols_valign(["m","m","m","m","m","m"])
+                            pp1.set_cols_dtype(["t","t","t","i","t","t"])
+                            pp1.add_row(["ID","NAME","GENDER","AGE","BLOOD GROUP","REMARKS"])
+                            r=cur.fetchall()
+                            for x in r:
+                                pp1.add_row(x)
+                            print(pp1.draw())
+                            input('Press Enter to Continue')
+
                         elif c1==2:
-                            q='select * from patient where name=%s'
+                            q='select pid,name,gender,age,blood_group,remark from patient where name=%s'
                             name=input('Enter Patient Name: ')
                             v=(name,)
                             cur.execute(q,v)
-                            for x in cur:
-                                print(x)
+                            pp2=Texttable()
+                            pp2.set_cols_align(["c","c","c","c","c","c"])
+                            pp2.set_cols_valign(["m","m","m","m","m","m"])
+                            pp2.set_cols_dtype(["t","t","t","i","t","t"])
+                            pp2.add_row(["ID","NAME","GENDER","AGE","BLOOD GROUP","REMARKS"])
+                            r=cur.fetchall()
+                            for x in r:
+                                pp2.add_row(x)
+                            print(pp2.draw())
+                            input('Press Enter to Continue')
                         elif c1==3:
                             break
                 elif c==2:
@@ -68,19 +85,36 @@ def dpatient():
                         print(p3.draw())
                         c2=int(input('Enter Choice: '))
                         if c2==1:
-                            q='select patient.name,name,dept,fees,room from patient,doctor where patient.did=doctor.did and pid=%s'
+                            q='select patient.name,doctor.name,dept,fees,room from patient,doctor where patient.did=doctor.did and pid=%s'
                             pid=input('Enter Patient ID: ')
                             v=(pid,)
                             cur.execute(q,v)
-                            for x in cur:
-                                print(x)
+                            pd1=Texttable()
+                            pd1.set_cols_align(["c","c","c","c","c"])
+                            pd1.set_cols_valign(["m","m","m","m","m"])
+                            pd1.set_cols_dtype(["i","t","t","i","i"])
+                            pd1.add_row(["PATIENT NAME","DOCTOR NAME","DEPT","FEES","ROOM No."])
+                            r=cur.fetchall()
+                            for x in r:
+                                pd1.add_row(x)
+                            print(pd1.draw())
+                            input('Press Enter to Continue')
                         elif c2==2:
-                            q='select patient.name,name,dept,fees,room from patient,doctor where patient.did=doctor.did and patient.name=%s'
+                            q='select patient.name,doctor.name,dept,fees,room from patient,doctor where patient.did=doctor.did and patient.name=%s'
                             name=input('Enter Patient Name: ')
                             v=(name,)
                             cur.execute(q,v)
-                            for x in cur:
-                                print(x)
+                            pd2=Texttable()
+                            pd2.set_cols_align(["c","c","c","c","c"])
+                            pd2.set_cols_valign(["m","m","m","m","m"])
+                            pd2.set_cols_dtype(["i","t","t","i","i"])
+                            pd2.add_row(["PATIENT NAME","DOCTOR NAME","DEPT","FEES","ROOM No."])
+                            r=cur.fetchall()
+                            for x in r:
+                                pd2.add_row(x)
+                            print(pd2.draw())
+                            input('Press Enter to Continue')
+
                         elif c2==3:
                             break
                 elif c==3:
