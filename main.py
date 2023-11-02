@@ -9,9 +9,8 @@ t1.set_cols_valign(['m'])
 
 t1.add_rows([['WELCOME TO RADCLIFF HOSPITAL MANAGEMENT SYSTEM'],
              ['1. Login as ADMIN'],
-             ['2. Register as USER'],
-             ['3. Login as USER'],
-             ['4. Exit']
+             ['2. Login as USER'],
+             ['3. Exit']
              ])
 while True:
     print(t1.draw())
