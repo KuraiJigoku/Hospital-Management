@@ -28,6 +28,7 @@
 - Add Doctor Details
 - Add Patient Details
 - Appointment
+- Total : 7 files, 545 codes, 39 comments, 56 blanks, all 640 lines
 
 
 ## :toolbox: Getting Started
