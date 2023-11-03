@@ -71,4 +71,5 @@ py main.py
 ## :compass: Roadmap
 
 
-* [ ] Adding Comments
+* [✔] Adding Comments
+* [ ] More Minor Updates
