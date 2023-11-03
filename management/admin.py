@@ -1,7 +1,20 @@
+"""
+This module contains functions for managing a bank's database. It includes functions for logging in as an admin, adding, removing, updating, and displaying doctors and patients in the database. 
+
+Functions:
+- login(): Logs in as an admin.
+- adoctor(): Adds a doctor to the database.
+- rdoctor(): Removes a doctor from the database.
+- udoctor(): Updates a doctor's information in the database.
+- ddoctor(): Displays all doctors in the database.
+- apatient(): Adds a patient to the database.
+- upatient(): Updates a patient's information in the database.
+"""
 import mysqlc
 import mysql.connector as myc
 from texttable import Texttable
 con,cur=mysqlc.connection()
+
 try:
     cur.execute('CREATE TABLE IF NOT EXISTS login(USERNAME varchar(15),PASSWORD varchar(20),ROLE varchar(10),PRIMARY KEY (USERNAME))')
     cur.execute("insert ignore into login values('admin','radcliff','ADMIN')")

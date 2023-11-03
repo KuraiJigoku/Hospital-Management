@@ -3,7 +3,7 @@
 <h1>Project</h1>
 <p>A complex code to manage appointments</p>
 
-<h4> <span> · </span> <a href="https://github.com/MrHarryKenobi/Hospital-Management/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/MrHarryKenobi/Hospital-Management/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/MrHarryKenobi/Hospital-Management/issues"> Request Feature </a> </h4>
+<h4> <span> · </span> <a href="https://github.com/KuraiJigoku/Hospital-Management/blob/master/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/KuraiJigoku/Hospital-Management/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/KuraiJigoku/Hospital-Management/issues"> Request Feature </a> </h4>
 
 
 </div>
@@ -47,7 +47,7 @@ pip install texttable
 Clone the project
 
 ```bash
-https://github.com/MrHarryKenobi/Hospital-Management
+https://github.com/KuraiJigoku/Hospital-Management
 ```
 
 Install texttable library using command promt

@@ -1,3 +1,8 @@
+"""
+This module provides functions for managing patient accounts in a hospital management system.
+It requires the mysqlc module to connect to a MySQL database and the texttable module to display formatted tables.
+The functions in this module allow patients to log in and view their personal information and doctor details.
+"""
 import mysqlc
 import mysql.connector as myc
 from texttable import Texttable

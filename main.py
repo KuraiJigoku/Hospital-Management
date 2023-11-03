@@ -1,3 +1,10 @@
+
+"""
+This program is a hospital management system that allows users to login as either an admin or a user. 
+Admins can add, remove, update, and display doctor and patient details. 
+Users can view patient details. 
+"""
+
 from math import e
 import management.admin as admin
 import management.user as user
@@ -104,6 +111,3 @@ while True:
     elif v == 3:
         print("Exiting...")
         break
-
-           
-
