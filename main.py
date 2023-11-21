@@ -5,7 +5,6 @@ Admins can add, remove, update, and display doctor and patient details.
 Users can view patient details. 
 """
 
-from math import e
 import management.admin as admin
 import management.user as user
 from texttable import Texttable

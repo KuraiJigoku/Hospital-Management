@@ -11,6 +11,7 @@ Functions:
 - upatient(): Updates a patient's information in the database.
 """
 import mysqlc
+import bill
 import mysql.connector as myc
 from texttable import Texttable
 con,cur=mysqlc.connection()
@@ -137,6 +138,7 @@ def apatient():
         v=pid,name,gender,age,blood_group,remark,did
         cur.execute(q,v)
         con.commit()
+        bill.abill(pid,did)
     except myc.Error as E:
         print(E.msg)
 
