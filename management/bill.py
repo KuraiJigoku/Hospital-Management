@@ -3,7 +3,7 @@ con,cur=mysqlc.connection()
 from texttable import Texttable
 # Function to add bill for a patient
 def abill(pid,did):
-    cur.execute('CREATE TABLE IF NOT EXISTS billing(APPOINTMENT_ID int, PID varchar(15), DID int, APPOINTMENT_FEE decimal(10,2), PRIMARY KEY (APPOINTMENT_ID), FOREIGN KEY (PID) references patient(PID), FOREIGN KEY (DID) references doctor(DID))')
+    cur.execute('CREATE TABLE IF NOT EXISTS appointments(APPOINTMENT_ID int, PID varchar(15), DID int, APPOINTMENT_FEE decimal(10,2), PRIMARY KEY (APPOINTMENT_ID), FOREIGN KEY (PID) references patient(PID), FOREIGN KEY (DID) references doctor(DID))')
     appointment_id = input('Enter Appointment ID: ')
     cur.execute('select fees from doctor where did=%s', (did,))
     appointment_fee = 0
