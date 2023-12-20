@@ -12,10 +12,9 @@ def connection():
     try:
         con=myc.connect(host=host,user=user,password=pas)
         cur=con.cursor()
-        print('Connection Successfull')
         cur.execute("CREATE DATABASE IF NOT EXISTS xiiproject1")
         cur.execute("USE xiiproject1")
-        print('Connected to Database')
         return con,cur
     except myc.Error as E:
         print(E.msg)
+    print('Connection Successfull')
