@@ -53,9 +53,9 @@ def adoctor():
         print(E.msg)
 def rdoctor():
     try:
-        id=int(input('Enter Doctor ID to Remove from Database: '))
-        q='delete from doctor where id=%s'
-        v=(id,)
+        did=int(input('Enter Doctor ID to Remove from Database: '))
+        q='delete from doctor where did=%s'
+        v=(did,)
         cur.execute(q,v)
     except myc.Error as E:
         print(E.msg)
