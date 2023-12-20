@@ -187,8 +187,10 @@ def upatient():
 def rpatient():
     try:
         q='delete from patient where pid=%s'
+        q1='delete from appointments where pid=%s'
         id=input('Enter Patient ID: ')
         v=(id,)
+        cur.execute(q1,v)
         cur.execute(q,v)
         con.commit()
     except myc.Error as E:
