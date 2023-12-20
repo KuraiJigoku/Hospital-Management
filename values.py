@@ -32,7 +32,7 @@ def aupatient():
     try:
         cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),GENDER varchar(10),AGE int,BLOOD_GROUP varchar(5),REMARK varchar(70),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID))')
         q='insert ignore into patient values(%s,%s,%s,%s,%s,%s,%s)'
-        v = [('A','Jack','M',25,'A+','Fever',101), ('B','Peter','F',20,'B+','Chest Pain',101), ('C','Annie','M',30,'O+','Leukemia',102), ('D','Aashish','F',35,'A+','Asthma',103), ('E','Kevin','M',40,'B+','Skin Disease',105)]
+        v = [('10001','Jack','M',25,'A+','Fever',101), ('10002','Peter','F',20,'B+','Chest Pain',101), ('10003','Annie','M',30,'O+','Leukemia',102), ('10004','Aashish','F',35,'A+','Asthma',103), ('10005','Kevin','M',40,'B+','Skin Disease',105)]
         for x in v:
             pid,name,gender,age,blood,problem,did=x[0],x[1],x[2],x[3],x[4],x[5],x[6]
             v2=pid,name,gender,age,blood,problem,did
