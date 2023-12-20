@@ -1,6 +1,7 @@
 #This File is only made for automatic insertion of values in the database if needed. It is not required for the program to run.
 import mysqlc
 import mysql.connector as myc
+import management.bill as bill
 
 con,cur=mysqlc.connection()
 
@@ -33,13 +34,26 @@ def aupatient():
         cur.execute('CREATE TABLE IF NOT EXISTS patient(PID varchar(15),NAME varchar(40),GENDER varchar(10),AGE int,BLOOD_GROUP varchar(5),REMARK varchar(70),DID int,PRIMARY KEY (PID),FOREIGN KEY (DID) references doctor(DID))')
         q='insert ignore into patient values(%s,%s,%s,%s,%s,%s,%s)'
         v = [('10001','Jack','M',25,'A+','Fever',101), ('10002','Peter','F',20,'B+','Chest Pain',101), ('10003','Annie','M',30,'O+','Leukemia',102), ('10004','Aashish','F',35,'A+','Asthma',103), ('10005','Kevin','M',40,'B+','Skin Disease',105)]
+        cur.execute('CREATE TABLE IF NOT EXISTS appointments(APPOINTMENT_ID int, PID varchar(15), DID int, APPOINTMENT_FEE decimal(10,2), PRIMARY KEY (APPOINTMENT_ID), FOREIGN KEY (PID) references patient(PID), FOREIGN KEY (DID) references doctor(DID))')
         for x in v:
             pid,name,gender,age,blood,problem,did=x[0],x[1],x[2],x[3],x[4],x[5],x[6]
             v2=pid,name,gender,age,blood,problem,did
             cur.execute(q,v2)
-            cur.execute("insert into login values(%s,%s,'USER')",(pid,pid))
+            
+            appointment_id=1
+            cur.execute('select fees from doctor where did=%s', (did,))
+            appointment_fee = 0
+            for x in cur:
+                appointment_fee = x[0]
+            q = 'insert ignore into appointments values(%s,%s,%s,%s)'
+            v = (appointment_id, pid, did, appointment_fee)
+            cur.execute(q, v)
+            con.commit()
+            appointment_id+=1
+        cur.execute("insert into login values(%s,%s,'USER')",(pid,pid))
         con.commit()
         print('Added Patients Successfully')
+        
     except myc.Error as E:
         print(E.msg)
 

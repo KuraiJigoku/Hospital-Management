@@ -9,7 +9,7 @@ def abill(pid,did):
     appointment_fee = 0
     for x in cur:
         appointment_fee = x[0]
-    q = 'insert into appointments values(%s,%s,%s,%s)'
+    q = 'insert ignore into appointments values(%s,%s,%s,%s)'
     v = (appointment_id, pid, did, appointment_fee)
     cur.execute(q, v)
     con.commit()
