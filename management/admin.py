@@ -176,7 +176,7 @@ def upatient():
                 id=input('Enter Patient ID: ')
                 fees=input('Enter Update Patient Blood Group: ')
                 v=fees,id
-                q='update doctor set blood_group=%s where pid=%s'
+                q='update patient set blood_group=%s where pid=%s'
                 cur.execute(q,v)
                 con.commit()
                 print('Blood Group Updated')
